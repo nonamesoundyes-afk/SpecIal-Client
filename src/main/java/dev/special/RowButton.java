@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.text.LiteralText;
 
 import java.util.function.Supplier;
 
@@ -19,7 +20,7 @@ public class RowButton extends ButtonWidget {
             Supplier<String> value,
             PressAction action
     ) {
-        super(x, y, w, h, Text.of(label), action, DEFAULT_NARRATION_SUPPLIER);
+        super(x, y, w, h, new LiteralText(label), action, DEFAULT_NARRATION_SUPPLIER);
         this.checked = checked;
         this.value = value;
     }
@@ -42,7 +43,7 @@ public class RowButton extends ButtonWidget {
 
         if (checked != null) {
             if (Boolean.TRUE.equals(checked.get())) {
-                context.drawText(mc.textRenderer, Text.of("\u2713"),
+                context.drawText(mc.textRenderer, new LiteralText("✓"),
                         tx, ty, Theme.accent(), false);
             }
             tx += 12;
@@ -54,7 +55,7 @@ public class RowButton extends ButtonWidget {
         if (value != null) {
             String v = value.get();
             if (v != null) {
-                context.drawText(mc.textRenderer, Text.of(v),
+                context.drawText(mc.textRenderer, new LiteralText(v),
                         x + width - 4 - mc.textRenderer.getWidth(v),
                         ty, Theme.accent(), true);
             }
